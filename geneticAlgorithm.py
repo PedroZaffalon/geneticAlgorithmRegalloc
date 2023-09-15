@@ -1,10 +1,10 @@
 import numpy
 import itertools
 import random
-import graphManager
+import sys
 
 def createInitialPopulation(graph, nRegister, numberOfIndividuals = 8):
-    nodesID = [[x,0] for x in graph["nodes"]]
+    nodesID = [x for x in graph["nodes"]]
     nNodes = len(graph["nodes"])
     population = numpy.empty(shape = (numberOfIndividuals, nNodes), dtype = numpy.uint8)
     for i in  range(numberOfIndividuals):
@@ -20,7 +20,7 @@ def fitness(individualChromosome, graph, nodesID, nRegister):
     nNodes = len(individualChromosome)
     for i in range(nNodes):
         nodeID = nodesID[i]
-        spillcost = graphManager.spillCost(graph, nodeID, nodesID)
+        spillcost = spillCost(graph, nodeID)
         totalspill += spillcost
         if individualChromosome[i] == nRegister:
             spillsum += spillcost
@@ -35,29 +35,31 @@ def fitness(individualChromosome, graph, nodesID, nRegister):
                 elif edge["node 2"] == nodeID:
                     adjNode = edge["node 1"]
                     flag = True
-            if flag:
-                adjNodeIndex = graphManager.getNodeIndex(adjNode, nodesID)
-                if individualChromosome[i] == individualChromosome[adjNodeIndex]:
-                    validColors -= 1
-                    break
-    f = validColors/(nNodes - nSpill)  - 2 * spillsum/totalspill
-    return f, spillsum, (validColors == nNodes)
+                if flag:
+                    adjNodeIndex = getNodeIndex(adjNode, nodesID)
+                    if adjNodeIndex == -1:
+                        sys.exit(1)
+                    if individualChromosome[i] == individualChromosome[adjNodeIndex]:
+                        validColors -= 1
+                        break
+    f = validColors/(nNodes) - spillsum/totalspill
+    return f, validColors, spillsum, (validColors == nNodes)
 
-def selectMatingPool(population, qualities, spills, numberOfParents):
+def selectMatingPool(population, qualities, pop_data, numberOfParents):
     parents = numpy.empty((numberOfParents, population.shape[1]), dtype = numpy.uint8)
-    parents_spill = numpy.empty((numberOfParents), dtype = numpy.uint8)
-    parents_qualitie = numpy.empty((numberOfParents), dtype = numpy.uint8)
+    parents_data = numpy.empty((numberOfParents,2), dtype = numpy.uint8)
+    parents_qualities = numpy.empty((numberOfParents), dtype = numpy.uint8)
     for parentNumber in range(numberOfParents):
         maxQualityId = numpy.where(qualities == numpy.max(qualities))
         maxQualityId = maxQualityId[0][0]
         parents[parentNumber, :] = population[maxQualityId, :]
-        parents_spill[parentNumber] = spills[maxQualityId]
-        parents_qualitie[parentNumber] = qualities[maxQualityId]
+        parents_data[parentNumber, :] = pop_data[maxQualityId, :]
+        parents_qualities[parentNumber] = qualities[maxQualityId]
         qualities[maxQualityId] = -2
-    return parents, parents_qualitie, parents_spill
+    return parents, parents_qualities, parents_data
 
 def crossover(parents, numberOfIndividuals = 8):
-    newPopulation = numpy.empty(shape = (numberOfIndividuals, parents.shape[0]), dtype = numpy.uint8)
+    newPopulation = numpy.empty(shape = (numberOfIndividuals, parents.shape[1]), dtype = numpy.uint8)
     newPopulation[0 : parents.shape[0], :] = parents
     numberNewlyGenerated = numberOfIndividuals - parents.shape[0]
     parentsPermutations = list(itertools.permutations(iterable = numpy.arange(0, parents.shape[0]), r = 2))
@@ -77,3 +79,19 @@ def mutation(population, numberOfParentsMating, mutationPercent, nRegister):
         newValues = random.randint(0, nRegister)
         population[id, randomId] = newValues
     return population
+
+
+def spillCost(graph, nodeID):
+    node = graph["nodes"][nodeID]
+    spillCost = 0
+    for i in node["uses deepness"]:
+        spillCost += 10**i
+    return spillCost
+
+def getNodeIndex(nodeID, nodesID):
+    i = 0
+    for node in nodesID:
+        if nodeID == node:
+            return i
+        i += 1
+    return -1

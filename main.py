@@ -7,11 +7,11 @@ import shutil
 @click.option('--dir', '-d', default="", help='Path to directory with .ll input files.')
 @click.option('--output', '-o', default="", help='Path to output directory.')
 @click.option('--population', '-p', default=32, help='Solutions per Population.')
-@click.option('--interval', '-i', default=100, help='Savepoint interval to write output file.')
+@click.option('--interval', '-i', default=500, help='Savepoint interval to write output file.')
 @click.option('--registers', '-r', default=16, help='Number of registers.')
 @click.option('--mating', '-m', default=8, help='Number of Parents Mating.')
 @click.option('--mutation', '-d', default=0.01, help='Mutation Percent.')
-@click.option('--generations', '-g', default=50000, help='Number of generations.')
+@click.option('--generations', '-g', default=2000, help='Number of generations.')
 @click.option('--clear', '-c', is_flag=True, default=False, help='Remove files in output directory.')
 
 def cli(dir, output, population, interval, registers, mating, mutation, generations, clear):
@@ -40,11 +40,11 @@ def cli(dir, output, population, interval, registers, mating, mutation, generati
     
     for file_name in os.listdir(dir):
         if file_name.endswith(".json"):
-            print("aaa")
             input_file_name = os.path.join(dir, file_name)
-            output_file_name = os.path.join(output, file_name[:-3] + ".txt")
+            output_file_name = os.path.join(output, file_name[:-5] + ".txt")
             graphManager.read_graphs(input_file_name, output_file_name, population, interval, registers, mating, mutation, generations)
 
 
 
-    
+if __name__ == '__main__':
+    cli()

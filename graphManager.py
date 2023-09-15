@@ -6,51 +6,57 @@ from tqdm import tqdm
 def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, generations):
     graphs = ler_arquivo_json(input_file_name)
     flag = False
-    for graphName in graphs:
-        with open(output_file_name, 'r') as outputFile:
+    with open(output_file_name, 'w') as outputFile:
+        for graphName in graphs:    
             print(graphName + ":")
             if flag:
-                outputFile.write("\n")
+                outputFile.write("\n\n")
             else:
                 flag = True
             outputFile.write(graphName + ":\n")
             graph = graphs[graphName]
-
+            print(len(graph["nodes"]), " nodes and ", len(graph["edges"]), " edges")
+            outputFile.write(str(len(graph["nodes"])) + " nodes and " +  str(len(graph["edges"])) + " edges\n\n")
             optimal = False
-            bestSolution = [[], 0, 0, 0]
+            bestSolution = [[], 0, 0, 0, 0]
             nodesID, newPopulation = geneticAlgorithm.createInitialPopulation(graph, registers, nIndividuals)
             for iteration in tqdm(range(generations)):
 
                 qualities = numpy.zeros(newPopulation.shape[0])
-                spills = numpy.zeros(newPopulation.shape[0])
+                pop_data = numpy.zeros((newPopulation.shape[0],2))
                 for individualNumber in range(newPopulation.shape[0]):
-                    qualitie, spill, valid = geneticAlgorithm.fitness(newPopulation[individualNumber, :], graph, nodesID, registers)
+                    qualitie, validColors, spill, valid = geneticAlgorithm.fitness(newPopulation[individualNumber, :], graph, nodesID, registers)
                     if valid:
-                        outputFile.write("Optimal solution find in interation " + str(iteration), + ":")
+                        print("\nOptimal solution find in interation " + str(iteration) + ":\n")
+                        outputFile.write("Optimal solution find in interation " + str(iteration) + ":\n")
                         outputFile.write(str(newPopulation[individualNumber, :]))
                         optimal = True
                         break
-                    if qualitie > bestSolution[1] or (qualitie == bestSolution[1] and spill < bestSolution[2]):
-                        bestSolution = [newPopulation[individualNumber, :], qualitie, spill, iteration]
+                    if qualitie > bestSolution[1] or (qualitie == bestSolution[1] and spill < bestSolution[3]):
+                        bestSolution = [newPopulation[individualNumber, :], qualitie, validColors, spill, iteration]
                     qualities[individualNumber] = qualitie
-                    spills[individualNumber] = spill
+                    pop_data[individualNumber, :] = [validColors, spill]
                     
-                parents, parents_qualitie, parents_spill = geneticAlgorithm.selectMatingPool(newPopulation, qualities, spills, mating)
+                if optimal:
+                    break
+
+                parents, parents_qualitie, parents_data = geneticAlgorithm.selectMatingPool(newPopulation, qualities, pop_data, mating)
 
                 if iteration % interval == 0:
-                    outputFile.write("Manting population:")
-                    for i in range(len(parents_spill)):
-                        outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualitie[i]) + ", Spill cost: " + str(parents_spill[i]))
+                    outputFile.write("Manting population:\n")
+                    for i in range(len(parents_data)):
+                        outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualitie[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
 
                 newPopulation = geneticAlgorithm.crossover(parents, nIndividuals)
-                newPopulation = geneticAlgorithm.mutation(newPopulation, mating, mutation)
+                newPopulation = geneticAlgorithm.mutation(newPopulation, mating, mutation, registers)
 
             if not optimal:
-                outputFile.write("Best solution:")
-                outputFile.write("Solution: " + str(bestSolution[0]))
-                outputFile.write("Qualitie: " + str(bestSolution[1]))   
-                outputFile.write("Spill cost: " + str(bestSolution[2]))   
-                outputFile.write("Iteration: " + str(bestSolution[3]))     
+                outputFile.write("Best solution:\n")
+                outputFile.write("Solution: " + str(bestSolution[0]) + "\n")
+                outputFile.write("Qualitie: " + str(bestSolution[1]) + "\n")
+                outputFile.write("Valid Colors: " + str(bestSolution[2]) + "\n")      
+                outputFile.write("Spill cost: " + str(bestSolution[3]) + "\n")   
+                outputFile.write("Iteration: " + str(bestSolution[4]))     
         
 
 
@@ -66,18 +72,3 @@ def ler_arquivo_json(nome_arquivo):
     except json.JSONDecodeError:
         print(f"O arquivo '{nome_arquivo}' não é um JSON válido.")
         return {}
-
-def spillCost(graph, nodeId, nodesID):
-    node = graph["nodes"][nodesID[nodeId][0]]
-    spillCost = 0
-    for i in node["uses deepness"]:
-        spillCost += 10**i
-    return spillCost
-
-def getNodeIndex(nodeId, nodesID):
-    i = 0
-    for node in nodesID:
-        if nodeId == node:
-            return i
-        i += 1
-    return -1
