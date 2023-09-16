@@ -36,16 +36,16 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                         bestSolution = [newPopulation[individualNumber, :], qualitie, validColors, spill, iteration]
                     qualities[individualNumber] = qualitie
                     pop_data[individualNumber, :] = [validColors, spill]
-                    
+
                 if optimal:
                     break
 
-                parents, parents_qualitie, parents_data = geneticAlgorithm.selectMatingPool(newPopulation, qualities, pop_data, mating)
+                parents, parents_qualities, parents_data = geneticAlgorithm.selectMatingPool(newPopulation, qualities, pop_data, mating)
 
                 if iteration % interval == 0:
                     outputFile.write("Manting population:\n")
                     for i in range(len(parents_data)):
-                        outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualitie[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
+                        outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualities[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
 
                 newPopulation = geneticAlgorithm.crossover(parents, nIndividuals)
                 newPopulation = geneticAlgorithm.mutation(newPopulation, mating, mutation, registers)

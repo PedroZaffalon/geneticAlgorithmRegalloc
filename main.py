@@ -10,7 +10,7 @@ import shutil
 @click.option('--interval', '-i', default=500, help='Savepoint interval to write output file.')
 @click.option('--registers', '-r', default=16, help='Number of registers.')
 @click.option('--mating', '-m', default=8, help='Number of Parents Mating.')
-@click.option('--mutation', '-d', default=0.01, help='Mutation Percent.')
+@click.option('--mutation', '-d', default=0.05, help='Mutation Percent.')
 @click.option('--generations', '-g', default=2000, help='Number of generations.')
 @click.option('--clear', '-c', is_flag=True, default=False, help='Remove files in output directory.')
 

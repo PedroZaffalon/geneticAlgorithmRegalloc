@@ -48,7 +48,7 @@ def fitness(individualChromosome, graph, nodesID, nRegister):
 def selectMatingPool(population, qualities, pop_data, numberOfParents):
     parents = numpy.empty((numberOfParents, population.shape[1]), dtype = numpy.uint8)
     parents_data = numpy.empty((numberOfParents,2), dtype = numpy.uint8)
-    parents_qualities = numpy.empty((numberOfParents), dtype = numpy.uint8)
+    parents_qualities = numpy.zeros(numberOfParents)
     for parentNumber in range(numberOfParents):
         maxQualityId = numpy.where(qualities == numpy.max(qualities))
         maxQualityId = maxQualityId[0][0]
