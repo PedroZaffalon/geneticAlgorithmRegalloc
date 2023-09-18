@@ -40,14 +40,18 @@ def fitness(individualChromosome, graph, nodesID, nRegister):
                     if adjNodeIndex == -1:
                         sys.exit(1)
                     if individualChromosome[i] == individualChromosome[adjNodeIndex]:
+                        individualChromosome[i] = nRegister
                         validColors -= 1
+                        spillsum += spillcost
+                        nSpill += 1
                         break
-    f = validColors/(nNodes) - spillsum/totalspill
-    return f, validColors, spillsum, (validColors == nNodes)
+    #f = validColors/nNodes - 3 * spillsum/totalspill
+    f =  1 - spillsum/totalspill
+    return f, validColors, spillsum, (f == 1)
 
 def selectMatingPool(population, qualities, pop_data, numberOfParents):
     parents = numpy.empty((numberOfParents, population.shape[1]), dtype = numpy.uint8)
-    parents_data = numpy.empty((numberOfParents,2), dtype = numpy.uint8)
+    parents_data = numpy.zeros((numberOfParents,2), dtype = numpy.uint32)
     parents_qualities = numpy.zeros(numberOfParents)
     for parentNumber in range(numberOfParents):
         maxQualityId = numpy.where(qualities == numpy.max(qualities))
@@ -58,6 +62,15 @@ def selectMatingPool(population, qualities, pop_data, numberOfParents):
         qualities[maxQualityId] = -2
     return parents, parents_qualities, parents_data
 
+def crossover(parents, numberOfIndividuals = 8):
+    nRegister = parents.shape[1]
+    newPopulation = numpy.empty(shape = (numberOfIndividuals, nRegister), dtype = numpy.uint8)
+    for i in range(numberOfIndividuals):
+        for j in range(nRegister):
+            newPopulation[i,j] = parents[random.randint(0, parents.shape[0] - 1), j]
+    return newPopulation
+
+"""
 def crossover(parents, numberOfIndividuals = 8):
     newPopulation = numpy.empty(shape = (numberOfIndividuals, parents.shape[1]), dtype = numpy.uint8)
     newPopulation[0 : parents.shape[0], :] = parents
@@ -72,6 +85,7 @@ def crossover(parents, numberOfIndividuals = 8):
         newPopulation[combId + comb, 0 : halfSize] = parents[selectedComb[0], 0 : halfSize]
         newPopulation[combId + comb, halfSize :] = parents[selectedComb[1], halfSize :]
     return newPopulation
+"""
 
 def mutation(population, numberOfParentsMating, mutationPercent, nRegister):
     for id in range(numberOfParentsMating, population.shape[0]):

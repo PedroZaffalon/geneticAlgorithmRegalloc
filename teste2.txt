@@ -1,0 +1,128 @@
+@_Z7forwardRNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE:
+35 nodes and 188 edges
+
+Manting population:
+Solution: [11 16  4 15 14  7 13  5 16  1  2 12  9 11  6 10 13  4 14 16  8 15 16  9
+ 14 16 15  2 16  0  2 12  8  1 10], Qualitie: 0.8023255813953488, Valid Colors: 29, Spill cost: 17
+Solution: [ 3 16  1 12  7 15 10 11 16 13 10 16  5  6 14 16  4 16 16  3  5  1 13  3
+  7  9 15  0 15 10  8  9  8  3 12], Qualitie: 0.7790697674418605, Valid Colors: 29, Spill cost: 19
+Solution: [ 7 16  1 16  2  8  4 16 16 14  9 16  1  5  4  1 14 16 15  0 13  4 13  1
+ 11  7  9  8 14  9  2 12  8 12  3], Qualitie: 0.7674418604651163, Valid Colors: 29, Spill cost: 20
+Solution: [10 16  4 16  3  6 12 16 16  9 14  2  7  5  6 15 14  1  0  4  3 11 16 12
+ 15 13 16  0 12  3 13 16  0  2 11], Qualitie: 0.7558139534883721, Valid Colors: 28, Spill cost: 21
+Manting population:
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Manting population:
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Manting population:
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Solution: [11 16  4 15  7  6 13 11 16  9  9  2  7  5  6 15 16  4 15  0 13  1 13  3
+ 15  7 15  0 14  3  2 12  8  1  3], Qualitie: 0.8837209302325582, Valid Colors: 32, Spill cost: 10
+Best solution:
+Solution: [10 16  4 15 14  6 13 11 16 13 10  2  7  5  4 15 16  4 14  0 13  1 13  9
+ 15  9 15  2 15 10  2 12  8  1 12]
+Qualitie: 0.8837209302325582
+Valid Colors: 32
+Spill cost: 10
+Iteration: 3
+
+zeroext:
+7 nodes and 11 edges
+
+Optimal solution found in interation 0:
+[ 8  1 15 11  9  0 12]
+
+dereferenceable:
+2 nodes and 1 edges
+
+Optimal solution found in interation 0:
+[10  7]
+
+i1:
+16 nodes and 60 edges
+
+Optimal solution found in interation 0:
+[ 6  9 12 13  3 12  2  8  0  8  1 14  6  7 14  2]
+
+@main:
+53 nodes and 557 edges
+
+Manting population:
+Solution: [ 0 16 16 16 16 16 15 12 14  1 10  9 16  2 12 16  7  3 15 13  7  2 16 16
+ 16 16 16  9 16 10 16 15 11  1 16 16 16 14 16  5  8  6 12 16 16  1 13  9
+  4 14  3  1  0], Qualitie: 0.7189992748368383, Valid Colors: 33, Spill cost: 775
+Solution: [16 16 16 16 16 16 16  0  8  2 12 11  5  6 10 16  3 11  8 15  2 14 16 16
+ 16 16 10  3  2 16 16 16  0  4 16  8 13  1 16  6  9 16 16 11 16  5  2 15
+  3  7  6 10  3], Qualitie: 0.6860043509789703, Valid Colors: 33, Spill cost: 866
+Solution: [16 16 16 16 16 16  8  0 13  8 11 12  7 16 13 11  5  0 12  5 16 16 16 16
+ 16 16 16  3 13 15 16 10  8 14 16 16  7  0  1 14  3  5  6 16  4 11 10  9
+  6 15  9  1  5], Qualitie: 0.6845540246555475, Valid Colors: 35, Spill cost: 870
+Solution: [16 16 16 16 16 16  9  7 11  4 15 14  4  5  7 16 10 14 13  5 10 16 16 16
+ 16  8 16  7 10 16 11 14  1  7 15  6 16  5  7  0 13  3  8 16 12  9  2  2
+  7 11 10 15 11], Qualitie: 0.682741116751269, Valid Colors: 38, Spill cost: 875
+Manting population:
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Manting population:
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Manting population:
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Solution: [ 2 16  9 16 16 16 10  8 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  5 12  7 15  5], Qualitie: 0.9180565627266135, Valid Colors: 45, Spill cost: 226
+Best solution:
+Solution: [ 2 16  9 16 16 16 10 10 13 11 12 14  4  5 10  6  7  3 15  8 15  2 16 16
+  0  4  1  8 16 10 16 11 13 14 15  3  7  5 12  0  9  6  8 14 12 11 13  8
+  4 12  9 15  5]
+Qualitie: 0.9180565627266135
+Valid Colors: 45
+Spill cost: 226
+Iteration: 22

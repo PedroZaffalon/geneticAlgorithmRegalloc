@@ -27,12 +27,12 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                 for individualNumber in range(newPopulation.shape[0]):
                     qualitie, validColors, spill, valid = geneticAlgorithm.fitness(newPopulation[individualNumber, :], graph, nodesID, registers)
                     if valid:
-                        print("\nOptimal solution find in interation " + str(iteration) + ":\n")
-                        outputFile.write("Optimal solution find in interation " + str(iteration) + ":\n")
+                        print("\nOptimal solution found in interation " + str(iteration) + ":\n")
+                        outputFile.write("Optimal solution found in interation " + str(iteration) + ":\n")
                         outputFile.write(str(newPopulation[individualNumber, :]))
                         optimal = True
                         break
-                    if qualitie > bestSolution[1] or (qualitie == bestSolution[1] and spill < bestSolution[3]):
+                    if qualitie > bestSolution[1]:
                         bestSolution = [newPopulation[individualNumber, :], qualitie, validColors, spill, iteration]
                     qualities[individualNumber] = qualitie
                     pop_data[individualNumber, :] = [validColors, spill]

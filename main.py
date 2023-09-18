@@ -6,12 +6,12 @@ import shutil
 @click.command()
 @click.option('--dir', '-d', default="", help='Path to directory with .ll input files.')
 @click.option('--output', '-o', default="", help='Path to output directory.')
-@click.option('--population', '-p', default=32, help='Solutions per Population.')
-@click.option('--interval', '-i', default=500, help='Savepoint interval to write output file.')
+@click.option('--population', '-p', default=64, help='Solutions per Population.')
+@click.option('--interval', '-i', default=50, help='Savepoint interval to write output file.')
 @click.option('--registers', '-r', default=16, help='Number of registers.')
-@click.option('--mating', '-m', default=8, help='Number of Parents Mating.')
-@click.option('--mutation', '-d', default=0.05, help='Mutation Percent.')
-@click.option('--generations', '-g', default=2000, help='Number of generations.')
+@click.option('--mating', '-m', default=4, help='Number of Parents Mating.')
+@click.option('--mutation', '-d', default=2, help='Mutation Percent.')
+@click.option('--generations', '-g', default=200, help='Number of generations.')
 @click.option('--clear', '-c', is_flag=True, default=False, help='Remove files in output directory.')
 
 def cli(dir, output, population, interval, registers, mating, mutation, generations, clear):
