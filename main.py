@@ -51,7 +51,7 @@ def cli(dir, output, population, interval, registers, mating, mutation, generati
                 aux_dir = os.path.join(output, path_rel)
             else:
                 aux_dir = output
-            search_dir(dir, aux_dir, population, interval, registers, mating, mutation, generations)
+            search_dir(subdir, aux_dir, population, interval, registers, mating, mutation, generations)
     search_dir(dir, output, population, interval, registers, mating, mutation, generations)
 
 
