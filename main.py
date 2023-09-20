@@ -1,7 +1,7 @@
-import graphManager
 import click
 import os
 import shutil
+from subdir import percorrer_subdiretorios, search_dir
 
 @click.command()
 @click.option('--dir', '-d', default="", help='Path to directory with .ll input files.')
@@ -9,12 +9,14 @@ import shutil
 @click.option('--population', '-p', default=64, help='Solutions per Population.')
 @click.option('--interval', '-i', default=50, help='Savepoint interval to write output file.')
 @click.option('--registers', '-r', default=16, help='Number of registers.')
-@click.option('--mating', '-m', default=4, help='Number of Parents Mating.')
-@click.option('--mutation', '-d', default=2, help='Mutation Percent.')
-@click.option('--generations', '-g', default=200, help='Number of generations.')
+@click.option('--mating', '-m', default=8, help='Number of Parents Mating.')
+@click.option('--mutation', '-x', default=5, help='Mutation Percent.')
+@click.option('--generations', '-g', default=150, help='Number of generations.')
+@click.option('--subdirectorys', '-s', is_flag=True, default=False, help='Iterate all subdirectories and search for .ll files.')
+@click.option('--keepfolders', '-k', is_flag=True, default=False, help='Keep folders structure in output directory if --subdirectorys is True.')
 @click.option('--clear', '-c', is_flag=True, default=False, help='Remove files in output directory.')
 
-def cli(dir, output, population, interval, registers, mating, mutation, generations, clear):
+def cli(dir, output, population, interval, registers, mating, mutation, generations, subdirectorys, keepfolders, clear):
     if dir == "":
         dir = os.getcwd()
     
@@ -37,12 +39,21 @@ def cli(dir, output, population, interval, registers, mating, mutation, generati
 
     if not os.path.exists(output):
         os.makedirs(output)
-    
-    for file_name in os.listdir(dir):
-        if file_name.endswith(".json"):
-            input_file_name = os.path.join(dir, file_name)
-            output_file_name = os.path.join(output, file_name[:-5] + ".txt")
-            graphManager.read_graphs(input_file_name, output_file_name, population, interval, registers, mating, mutation, generations)
+
+    if subdirectorys:
+        # chama a função para percorrer todos os subdiretórios e salvar os caminhos em uma lista
+        subdirs = percorrer_subdiretorios(dir)
+
+        # loop para executar o comando com cada subdiretório como argumento
+        for subdir in subdirs:
+            if keepfolders:
+                path_rel = os.path.relpath(subdir, dir)
+                aux_dir = os.path.join(output, path_rel)
+            else:
+                aux_dir = output
+            search_dir(dir, aux_dir, population, interval, registers, mating, mutation, generations)
+    print("aa")
+    search_dir(dir, output, population, interval, registers, mating, mutation, generations)
 
 
 

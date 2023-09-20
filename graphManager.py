@@ -57,9 +57,6 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                 outputFile.write("Valid Colors: " + str(bestSolution[2]) + "\n")      
                 outputFile.write("Spill cost: " + str(bestSolution[3]) + "\n")   
                 outputFile.write("Iteration: " + str(bestSolution[4]))     
-        
-
-
 
 def ler_arquivo_json(nome_arquivo):
     try:
