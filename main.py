@@ -52,7 +52,6 @@ def cli(dir, output, population, interval, registers, mating, mutation, generati
             else:
                 aux_dir = output
             search_dir(dir, aux_dir, population, interval, registers, mating, mutation, generations)
-    print("aa")
     search_dir(dir, output, population, interval, registers, mating, mutation, generations)
 
 
