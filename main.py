@@ -49,6 +49,8 @@ def cli(dir, output, population, interval, registers, mating, mutation, generati
             if keepfolders:
                 path_rel = os.path.relpath(subdir, dir)
                 aux_dir = os.path.join(output, path_rel)
+                if not os.path.exists(aux_dir):
+                    os.makedirs(aux_dir)
             else:
                 aux_dir = output
             search_dir(subdir, aux_dir, population, interval, registers, mating, mutation, generations)
