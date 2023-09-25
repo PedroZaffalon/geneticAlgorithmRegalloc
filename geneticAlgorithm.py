@@ -49,17 +49,25 @@ def fitness(individualChromosome, graph, nodesID, nRegister):
     f =  1 - spillsum/totalspill
     return f, validColors, spillsum, (f == 1)
 
+def getRandomParent(qualities):
+    total = numpy.sum(qualities)
+    n = random.uniform(0, 1)
+    p_sum = 0
+    for i, q in enumerate(qualities):
+        p_sum += q/total
+        if n <= p_sum:
+            return i
+
 def selectMatingPool(population, qualities, pop_data, numberOfParents):
     parents = numpy.empty((numberOfParents, population.shape[1]), dtype = numpy.uint8)
     parents_data = numpy.zeros((numberOfParents,2), dtype = numpy.uint32)
     parents_qualities = numpy.zeros(numberOfParents)
     for parentNumber in range(numberOfParents):
-        maxQualityId = numpy.where(qualities == numpy.max(qualities))
-        maxQualityId = maxQualityId[0][0]
+        maxQualityId = getRandomParent(qualities)
         parents[parentNumber, :] = population[maxQualityId, :]
         parents_data[parentNumber, :] = pop_data[maxQualityId, :]
         parents_qualities[parentNumber] = qualities[maxQualityId]
-        qualities[maxQualityId] = -2
+        qualities[maxQualityId] = 0
     return parents, parents_qualities, parents_data
 
 def alternative_crossover(parents, numberOfIndividuals = 8):
@@ -73,17 +81,15 @@ def alternative_crossover(parents, numberOfIndividuals = 8):
 
 def crossover(parents, numberOfIndividuals = 8):
     newPopulation = numpy.empty(shape = (numberOfIndividuals, parents.shape[1]), dtype = numpy.uint8)
-    newPopulation[0 : parents.shape[0], :] = parents
-    numberNewlyGenerated = numberOfIndividuals - parents.shape[0]
+    numberNewlyGenerated = numberOfIndividuals
     parentsPermutations = list(itertools.permutations(iterable = numpy.arange(0, parents.shape[0]), r = 2))
     selectedPermutations = random.sample(range(len(parentsPermutations)), numberNewlyGenerated)
-    combId = parents.shape[0]
     for comb in range(len(selectedPermutations)):
         selectedCombId = selectedPermutations[comb]
         selectedComb = parentsPermutations[selectedCombId]
         halfSize = numpy.int32(newPopulation.shape[1] / 2)
-        newPopulation[combId + comb, 0 : halfSize] = parents[selectedComb[0], 0 : halfSize]
-        newPopulation[combId + comb, halfSize :] = parents[selectedComb[1], halfSize :]
+        newPopulation[comb, 0 : halfSize] = parents[selectedComb[0], 0 : halfSize]
+        newPopulation[comb, halfSize :] = parents[selectedComb[1], halfSize :]
     return newPopulation
 
 
