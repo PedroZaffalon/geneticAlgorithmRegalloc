@@ -62,7 +62,7 @@ def selectMatingPool(population, qualities, pop_data, numberOfParents):
         qualities[maxQualityId] = -2
     return parents, parents_qualities, parents_data
 
-def crossover(parents, numberOfIndividuals = 8):
+def alternative_crossover(parents, numberOfIndividuals = 8):
     nRegister = parents.shape[1]
     newPopulation = numpy.empty(shape = (numberOfIndividuals, nRegister), dtype = numpy.uint8)
     for i in range(numberOfIndividuals):
@@ -70,7 +70,7 @@ def crossover(parents, numberOfIndividuals = 8):
             newPopulation[i,j] = parents[random.randint(0, parents.shape[0] - 1), j]
     return newPopulation
 
-"""
+
 def crossover(parents, numberOfIndividuals = 8):
     newPopulation = numpy.empty(shape = (numberOfIndividuals, parents.shape[1]), dtype = numpy.uint8)
     newPopulation[0 : parents.shape[0], :] = parents
@@ -85,7 +85,7 @@ def crossover(parents, numberOfIndividuals = 8):
         newPopulation[combId + comb, 0 : halfSize] = parents[selectedComb[0], 0 : halfSize]
         newPopulation[combId + comb, halfSize :] = parents[selectedComb[1], halfSize :]
     return newPopulation
-"""
+
 
 def mutation(population, numberOfParentsMating, mutationPercent, nRegister):
     for id in range(numberOfParentsMating, population.shape[0]):

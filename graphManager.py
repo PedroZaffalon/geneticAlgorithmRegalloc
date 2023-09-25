@@ -3,7 +3,11 @@ import numpy
 import geneticAlgorithm
 from tqdm import tqdm
 
-def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, generations):
+def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, generations, alternativeCrossover):
+    
+    crossoverFunction = geneticAlgorithm.crossover
+    if alternativeCrossover:
+        crossoverFunction = geneticAlgorithm.alternative_crossover  
     graphs = ler_arquivo_json(input_file_name)
     flag = False
     with open(output_file_name, 'w') as outputFile:
@@ -47,7 +51,7 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                     for i in range(len(parents_data)):
                         outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualities[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
 
-                newPopulation = geneticAlgorithm.crossover(parents, nIndividuals)
+                newPopulation = crossoverFunction(parents, nIndividuals)
                 newPopulation = geneticAlgorithm.mutation(newPopulation, mating, mutation, registers)
 
             if not optimal:

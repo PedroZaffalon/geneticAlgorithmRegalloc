@@ -12,9 +12,9 @@ def percorrer_subdiretorios(root_dir):
             subdirs.append(subdir_path)
     return subdirs
 
-def search_dir(dir, output, population, interval, registers, mating, mutation, generations):
+def search_dir(dir, output, population, interval, registers, mating, mutation, generations, alternativeCrossover):
     for file_name in os.listdir(dir):
         if file_name.endswith(".json"):
             input_file_name = os.path.join(dir, file_name)
             output_file_name = os.path.join(output, file_name[:-5] + ".txt")
-            graphManager.read_graphs(input_file_name, output_file_name, population, interval, registers, mating, mutation, generations)
+            graphManager.read_graphs(input_file_name, output_file_name, population, interval, registers, mating, mutation, generations, alternativeCrossover)
