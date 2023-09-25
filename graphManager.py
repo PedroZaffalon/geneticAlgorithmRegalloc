@@ -46,8 +46,8 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
 
                 parents, parents_qualities, parents_data = geneticAlgorithm.selectMatingPool(newPopulation, qualities, pop_data, mating)
 
-                if iteration % interval == 0:
-                    outputFile.write("Manting population:\n")
+                if interval != 0 and iteration % interval == 0:
+                    outputFile.write("Manting population in interation " + str(iteration) + ":\n")
                     for i in range(len(parents_data)):
                         outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualities[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
 

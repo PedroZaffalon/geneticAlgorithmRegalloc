@@ -7,7 +7,7 @@ from subdir import percorrer_subdiretorios, search_dir
 @click.option('--dir', '-d', default="", help='Path to directory with .ll input files.')
 @click.option('--output', '-o', default="", help='Path to output directory.')
 @click.option('--population', '-p', default=64, help='Solutions per Population.')
-@click.option('--interval', '-i', default=50, help='Savepoint interval to write output file.')
+@click.option('--interval', '-i', default=0, help='Savepoint interval to write output file.')
 @click.option('--registers', '-r', default=16, help='Number of registers.')
 @click.option('--mating', '-m', default=8, help='Number of Parents Mating.')
 @click.option('--alternative_crossover', '-a', is_flag=False, help='Alternative crossover method.')
