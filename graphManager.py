@@ -3,21 +3,26 @@ import numpy
 import geneticAlgorithm
 from tqdm import tqdm
 
-def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, generations, alternativeCrossover):
+def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, generations, alternativeCrossover, singlegraph):
     
     crossoverFunction = geneticAlgorithm.crossover
     if alternativeCrossover:
         crossoverFunction = geneticAlgorithm.alternative_crossover  
     graphs = ler_arquivo_json(input_file_name)
+
+    if singlegraph:
+        graphs = {1 : graphs}
+
     flag = False
     with open(output_file_name, 'w') as outputFile:
-        for graphName in graphs:    
-            print(graphName + ":")
-            if flag:
-                outputFile.write("\n\n")
-            else:
-                flag = True
-            outputFile.write(graphName + ":\n")
+        for graphName in graphs: 
+            if not singlegraph:   
+                print(graphName + ":")
+                if flag:
+                    outputFile.write("\n\n")
+                else:
+                    flag = True
+                outputFile.write(graphName + ":\n")
             graph = graphs[graphName]
             print(len(graph["nodes"]), " nodes and ", len(graph["edges"]), " edges")
             outputFile.write(str(len(graph["nodes"])) + " nodes and " +  str(len(graph["edges"])) + " edges\n\n")
@@ -31,8 +36,8 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                 for individualNumber in range(newPopulation.shape[0]):
                     qualitie, validColors, spill, valid = geneticAlgorithm.fitness(newPopulation[individualNumber, :], graph, nodesID, registers)
                     if valid:
-                        print("\nOptimal solution found in interation " + str(iteration) + ":\n")
-                        outputFile.write("Optimal solution found in interation " + str(iteration) + ":\n")
+                        print("\nOptimal solution found in iteration " + str(iteration) + ":\n")
+                        outputFile.write("Optimal solution found in iteration " + str(iteration) + ":\n")
                         outputFile.write(str(newPopulation[individualNumber, :]))
                         optimal = True
                         break
@@ -47,7 +52,7 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                 parents, parents_qualities, parents_data = geneticAlgorithm.selectMatingPool(newPopulation, qualities, pop_data, mating)
 
                 if interval != 0 and iteration % interval == 0:
-                    outputFile.write("Manting population in interation " + str(iteration) + ":\n")
+                    outputFile.write("Manting population in iteration " + str(iteration) + ":\n")
                     for i in range(len(parents_data)):
                         outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualities[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
 

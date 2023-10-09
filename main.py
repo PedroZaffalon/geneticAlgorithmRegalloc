@@ -6,18 +6,19 @@ from subdir import percorrer_subdiretorios, search_dir
 @click.command()
 @click.option('--dir', '-d', default="", help='Path to directory with .ll input files.')
 @click.option('--output', '-o', default="", help='Path to output directory.')
-@click.option('--population', '-p', default=100, help='Solutions per Population.')
+@click.option('--population', '-p', default=60, help='Solutions per Population.')
 @click.option('--interval', '-i', default=0, help='Savepoint interval to write output file.')
 @click.option('--registers', '-r', default=16, help='Number of registers.')
-@click.option('--mating', '-m', default=12, help='Number of Parents Mating.')
+@click.option('--mating', '-m', default=10, help='Number of Parents Mating.')
 @click.option('--alternative_crossover', '-a', is_flag=True, help='Alternative crossover method.')
 @click.option('--mutation', '-x', default=.2, help='Mutation Percent.')
 @click.option('--generations', '-g', default=100, help='Number of generations.')
 @click.option('--subdirectorys', '-s', is_flag=True, default=False, help='Iterate all subdirectories and search for .ll files.')
 @click.option('--keepfolders', '-k', is_flag=True, default=False, help='Keep folders structure in output directory if --subdirectorys is True.')
 @click.option('--clear', '-c', is_flag=True, default=False, help='Remove files in output directory.')
+@click.option('--singlegraph', '-sg', is_flag=True, default=False, help='Only a single graph each file.')
 
-def cli(dir, output, population, interval, registers, mating, alternative_crossover, mutation, generations, subdirectorys, keepfolders, clear):
+def cli(dir, output, population, interval, registers, mating, alternative_crossover, mutation, generations, subdirectorys, keepfolders, clear, singlegraph):
     if dir == "":
         dir = os.getcwd()
     
@@ -54,8 +55,8 @@ def cli(dir, output, population, interval, registers, mating, alternative_crosso
                     os.makedirs(aux_dir)
             else:
                 aux_dir = output
-            search_dir(subdir, aux_dir, population, interval, registers, mating, mutation, generations, alternative_crossover)
-    search_dir(dir, output, population, interval, registers, mating, mutation, generations, alternative_crossover)
+            search_dir(subdir, aux_dir, population, interval, registers, mating, mutation, generations, alternative_crossover, singlegraph)
+    search_dir(dir, output, population, interval, registers, mating, mutation, generations, alternative_crossover, singlegraph)
 
 
 
