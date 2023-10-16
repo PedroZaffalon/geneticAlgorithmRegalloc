@@ -2,43 +2,41 @@
 35 nodes and 188 edges
 
 Best solution:
-Solution: [10 16  6  2 11 13 12 16 16 16 16  0  7  7  2 16 15  3 11  2 14  2  4  6
-  5 15 14  0  5 14  8 11  2  8  4]
-Qualitie: 0.8023255813953488
-Valid Colors: 29
-Spill cost: 17
+Solution: [6 8 8 4 7 1 6 8 6 1 5 8 2 5 0 8 1 8 2 3 4 7 1 4 7 7 8 3 8 7 0 3 2 4 7]
+Qualitie: 0.7209302325581395
+Valid Colors: 27
+Spill cost: 24
 Iteration: 0
 
 zeroext:
 7 nodes and 11 edges
 
-Optimal solution found in interation 0:
-[ 2 14  8 13  3  9 12]
+Optimal solution found in iteration 0:
+[5 2 1 3 6 5 2]
 
 dereferenceable:
 2 nodes and 1 edges
 
-Optimal solution found in interation 0:
-[2 9]
+Optimal solution found in iteration 0:
+[7 0]
 
 i1:
 16 nodes and 60 edges
 
 Best solution:
-Solution: [ 0 11  2 10  8  7 11  2  4  6 16  4  1 13  7  1]
-Qualitie: 0.96875
-Valid Colors: 15
-Spill cost: 3
-Iteration: 0
+Solution: [8 6 7 3 8 5 2 6 1 8 7 6 5 4 0 6]
+Qualitie: 0.8020833333333334
+Valid Colors: 13
+Spill cost: 19
+Iteration: 1
 
 @main:
 53 nodes and 557 edges
 
 Best solution:
-Solution: [16 16 16 16 16 16  6 12 13 15  5 12  1  9 16 16 14 10  7  6 13  9 16 16
- 12 16  4  5 16 16  8 11 16  5 16 16 16 10  5 16  7  2 12  6  3 15 14  1
- 12 13  7 12  3]
-Qualitie: 0.7574329224075417
-Valid Colors: 35
-Spill cost: 669
+Solution: [8 8 8 8 3 8 7 0 8 4 6 7 8 2 7 8 8 4 6 7 6 8 8 8 5 8 8 8 8 8 8 8 8 8 8 8 8
+ 8 8 2 0 5 7 4 8 7 1 6 4 7 2 3 1]
+Qualitie: 0.6044234952864395
+Valid Colors: 26
+Spill cost: 1091
 Iteration: 0

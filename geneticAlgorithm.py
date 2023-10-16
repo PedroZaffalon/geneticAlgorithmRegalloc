@@ -3,50 +3,39 @@ import itertools
 import random
 import sys
 
-def createInitialPopulation(graph, nRegister, numberOfIndividuals = 8):
+def createInitialPopulation(graph, nRegister, numberOfIndividuals = 8, randomspill = False):
+    nMax = nRegister
+    if not randomspill:
+        nMax -= 1
     nodesID = [x for x in graph["nodes"]]
+    interference = [createAdjList(graph, x, nodesID) for x in graph["nodes"]]
+    spillcosts = [spillCost(graph["nodes"], x) for x in graph["nodes"]]
+    totalspillcost = sum(spillcosts)
     nNodes = len(graph["nodes"])
     population = numpy.empty(shape = (numberOfIndividuals, nNodes), dtype = numpy.uint8)
     for i in  range(numberOfIndividuals):
         for j in range(nNodes):
-            population[i,j] = random.randint(0, nRegister)
-    return nodesID, population
+            population[i,j] = random.randint(0, nMax)
+    return population, interference, spillcosts, totalspillcost
 
-def fitness(individualChromosome, graph, nodesID, nRegister):
+def fitness(individualChromosome, nRegister, interference, spillcosts, totalspillcost):
     validColors = 0
-    nSpill = 0
     spillsum = 0
-    totalspill = 0
     nNodes = len(individualChromosome)
     for i in range(nNodes):
-        nodeID = nodesID[i]
-        spillcost = spillCost(graph, nodeID)
-        totalspill += spillcost
+        spillcost = spillcosts[i]
         if individualChromosome[i] == nRegister:
             spillsum += spillcost
-            nSpill += 1
         else:
             validColors += 1
-            for edge in graph["edges"]:
-                flag = False
-                if edge["node 1"] == nodeID:
-                    adjNode = edge["node 2"]
-                    flag = True
-                elif edge["node 2"] == nodeID:
-                    adjNode = edge["node 1"]
-                    flag = True
-                if flag:
-                    adjNodeIndex = getNodeIndex(adjNode, nodesID)
-                    if adjNodeIndex == -1:
-                        sys.exit(1)
-                    if individualChromosome[i] == individualChromosome[adjNodeIndex]:
-                        individualChromosome[i] = nRegister
-                        validColors -= 1
-                        spillsum += spillcost
-                        nSpill += 1
-                        break
-    #f = validColors/nNodes - 3 * spillsum/totalspill
-    f =  1 - spillsum/totalspill
+            for adjNode in interference[i]:
+                if individualChromosome[i] == individualChromosome[adjNode]:
+                    individualChromosome[i] = nRegister
+                    validColors -= 1
+                    spillsum += spillcost
+                    break
+    #f = validColors/nNodes - 3 * spillsum/totalspillcost
+    f =  1 - spillsum/totalspillcost
     return f, validColors, spillsum, (f == 1)
 
 def getRandomParent(qualities):
@@ -92,22 +81,38 @@ def crossover(parents, numberOfIndividuals = 8):
         newPopulation[comb, halfSize :] = parents[selectedComb[1], halfSize :]
     return newPopulation
 
-
-def mutation(population, numberOfParentsMating, mutationPercent, nRegister):
+def mutation(population, numberOfParentsMating, mutationPercent, nRegister, randomspill = False):
+    nMax = nRegister
+    if not randomspill:
+        nMax -= 1
     for id in range(numberOfParentsMating, population.shape[0]):
         randomId = numpy.uint32(numpy.random.random(size = numpy.uint32(mutationPercent / 100 * population.shape[1])) * population.shape[1])
-        newValues = random.randint(0, nRegister)
+        newValues = random.randint(0, nMax)
         population[id, randomId] = newValues
     return population
 
-
-def spillCost(graph, nodeID):
-    node = graph["nodes"][nodeID]
+def spillCost(nodes, nodeID):
+    node = nodes[nodeID]
     spillCost = 0
     for i in node["uses deepness"]:
         spillCost += 10**i
     return spillCost
 
+def createAdjList(graph, nodeID, nodesID):
+    adjList = []
+    for edge in graph["edges"]:
+        adjNode = None
+        if edge["node 1"] == nodeID:
+            adjNode = edge["node 2"]
+        elif edge["node 2"] == nodeID:
+            adjNode = edge["node 1"]
+        if adjNode is not None:
+            adjNodeIndex = getNodeIndex(adjNode, nodesID)
+            if adjNodeIndex == -1:
+                sys.exit(1)
+            adjList.append(adjNodeIndex)
+    return adjList
+        
 def getNodeIndex(nodeID, nodesID):
     i = 0
     for node in nodesID:

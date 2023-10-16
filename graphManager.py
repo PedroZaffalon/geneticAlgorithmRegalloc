@@ -3,7 +3,7 @@ import numpy
 import geneticAlgorithm
 from tqdm import tqdm
 
-def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, generations, alternativeCrossover, singlegraph):
+def read_graphs(input_file_name, output_file_name, nIndividuals, interval, registers, mating, mutation, randomspill, generations, alternativeCrossover, singlegraph):
     
     crossoverFunction = geneticAlgorithm.crossover
     if alternativeCrossover:
@@ -28,13 +28,12 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
             outputFile.write(str(len(graph["nodes"])) + " nodes and " +  str(len(graph["edges"])) + " edges\n\n")
             optimal = False
             bestSolution = [[], 0, 0, 0, 0]
-            nodesID, newPopulation = geneticAlgorithm.createInitialPopulation(graph, registers, nIndividuals)
+            newPopulation, interference, spillcosts, totalspillcost = geneticAlgorithm.createInitialPopulation(graph, registers, nIndividuals, randomspill)
             for iteration in tqdm(range(generations)):
-
                 qualities = numpy.zeros(newPopulation.shape[0])
                 pop_data = numpy.zeros((newPopulation.shape[0],2))
                 for individualNumber in range(newPopulation.shape[0]):
-                    qualitie, validColors, spill, valid = geneticAlgorithm.fitness(newPopulation[individualNumber, :], graph, nodesID, registers)
+                    qualitie, validColors, spill, valid = geneticAlgorithm.fitness(newPopulation[individualNumber, :], registers, interference, spillcosts, totalspillcost)
                     if valid:
                         print("\nOptimal solution found in iteration " + str(iteration) + ":\n")
                         outputFile.write("Optimal solution found in iteration " + str(iteration) + ":\n")
@@ -57,7 +56,7 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
                         outputFile.write("Solution: " + str(parents[i, :]) + ", Qualitie: " + str(parents_qualities[i]) + ", Valid Colors: " + str(parents_data[i,0])  + ", Spill cost: " + str(parents_data[i,1])  + "\n")
 
                 newPopulation = crossoverFunction(parents, nIndividuals)
-                newPopulation = geneticAlgorithm.mutation(newPopulation, mating, mutation, registers)
+                newPopulation = geneticAlgorithm.mutation(newPopulation, mating, mutation, registers, randomspill)
 
             if not optimal:
                 outputFile.write("Best solution:\n")
