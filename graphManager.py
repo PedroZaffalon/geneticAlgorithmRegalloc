@@ -33,8 +33,8 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
             outputResults['Parcial solutions'] = {} 
         graph = graphs[graphName]
         print(len(graph["nodes"]), " nodes and ", len(graph["edges"]), " edges")
-        outputResults["nodes number"]  = len(graph["nodes"])
-        outputResults["edges number"]  = len(graph["edges"])
+        outputResults["Nodes number"]  = len(graph["nodes"])
+        outputResults["Edges number"]  = len(graph["edges"])
         optimal = False
         bestSolution = [[], 0, 0, 0, 0]
         newPopulation, interference, spillcosts, totalspillcost = geneticAlgorithm.createInitialPopulation(graph, registers, nIndividuals, randomspill)
