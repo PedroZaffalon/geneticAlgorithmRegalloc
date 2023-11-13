@@ -22,7 +22,12 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
         if not singlegraph:   
             print(graphName + ":")
             output_file += "_" + str(i)
-              
+        
+        output_file += ".json"
+        while os.path.exists(output_file):
+            i += 1
+            output_file = output_file_name + "_" + str(i) + ".json"
+
         outputResults = {}
         if interval != 0:
             outputResults['Parcial solutions'] = {} 
@@ -77,7 +82,6 @@ def read_graphs(input_file_name, output_file_name, nIndividuals, interval, regis
             outputResults["Spill cost"]  = bestSolution[3]
             outputResults["Iteration"]  = bestSolution[4]
 
-        output_file += ".json"
         with open(output_file, 'w') as outputFile:
             json.dump(outputResults, outputFile, indent = 4)
 
